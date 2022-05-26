@@ -1,0 +1,104 @@
+npm install redux@4.1.2 react-redux@7.2.6
+
+tạo thư mục src/redux
+
+tạo thư mục src/reducer
+
+tạo thư mục src/action
+
+tạo file src/redux/store.js
+
+thêm dòng sau vào file index.js:
+    import {Provider} from 'react-redux'
+
+mở file index.js
+    sửa đoạn code:
+        <React.StrictMode>
+            <App />
+        </React.StrictMode>
+    thành:
+        <Provider store={store}>
+            <React.StrictMode>
+                <App />
+            </React.StrictMode>
+        </Provider>
+
+mở file src/redux/store.js và dán vào đoạn code sau:
+    import { createStore } from 'redux';
+    import rootReducer from '../reducer/rootReducer';
+    const store = createStore(rootReducer);
+    export default store;
+
+tạo file src/reducer/rootReducer.js với nội dung sau:
+    import { combineReducers } from 'redux';
+    import counterReducer from './counterReducer';
+
+    const rootReducer = combineReducers({
+        counter: counterReducer,
+    });
+
+    export default rootReducer;
+
+tạo file src/reducer/counterReducer.js
+
+tạo file src/action/types.js với nội dung sau:
+    export const INCREMENT = 'INCREMENT';
+    export const DECREMENT = 'DECREMENT';
+
+tạo file src/action/actions.js với nội dung sau:
+    import { INCREMENT, DECREMENT } from './types';
+
+    export const increaseCounter = () => {
+        return {
+            type: INCREMENT,
+        };
+    };
+
+    export const decreaseCounter = () => {
+        return {
+            type: DECREMENT,
+        };
+    };
+
+mở file src/reducer/counterReducer.js và dán vào đoạn code sau:
+    import { INCREMENT, DECREMENT } from '../action/types';
+
+    const INITIAL_STATE = {
+        count: 0,
+    };
+
+    const reducer = (state = INITIAL_STATE, action) => {
+        switch (action.type) {
+            case INCREMENT:
+                return {
+                    ...state, count: state.count + 1,
+                };
+            case DECREMENT:
+                return {
+                    ...state, count: state.count - 1,
+                };
+            default: return state;
+        }
+    };
+
+    export default reducer;
+
+mở file App.js:
+    dán vào đoạn code sau:
+        import { connect } from "react-redux"
+        import { increaseCounter, decreaseCounter } from "./action/actions"
+    dán vào đoạn code sau (sau dòng <h1>Hello world with React!</h1>):
+        <div>Count: {props.count}</div>
+        <button onClick={() => props.increaseCounter()}>Increase Count</button>
+        <button onClick={() => props.decreaseCounter()}>Decrease Count</button>
+    xóa dòng export default App; và dán vào đoạn code sau:
+    sửa function App() thành function App(props)
+
+npm install redux-devtools-extension@2.13.9
+
+mở file src/redux/store.js:
+    dán vào đoạn code sau:
+    import { composeWithDevTools } from 'redux-devtools-extension';
+    sửa const store = createStore(rootReducer); thành const store = createStore(rootReducer, composeWithDevTools());
+
+cài extension có tên Redux DevTools vào trình duyệt để xem các giá trị của redux
