@@ -164,3 +164,57 @@ mở file store.js cấu hình để sử dụng redux thunk:
         import thunkMiddleware from 'redux-thunk';
     sửa import { createStore } from 'redux'; thành import { createStore, applyMiddleware } from 'redux';
     sửa const store = createStore(rootReducer, composeWithDevTools(); thành const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));
+
+mở file src/action/actions.js và thêm vào các hàm sau để sử dụng redux thunk:
+    fetchAllUsers
+    fetchUsersRequest
+    fetchUsersSuccess
+    fetchUsersError
+
+mở file src/action/type.js và thêm vào các type sau để sử dụng redux thunk:
+    export const FETCH_USER_REQUEST = 'FETCH_USER_REQUEST';
+    export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
+    export const FETCH_USER_ERROR = 'FETCH_USER_ERROR';
+
+tạo file src/reducer/userReducer.js với nội dung sau để sử dụng redux thunk:
+    import { FETCH_USER_REQUEST, FETCH_USER_SUCCESS, FETCH_USER_ERROR } from '../action/types';
+
+    const INITIAL_STATE = {
+        listUsers: []
+    };
+
+    const userReducer = (state = INITIAL_STATE, action) => {
+        switch (action.type) {
+            case FETCH_USER_REQUEST:
+                return {
+                    ...state
+                };
+            case FETCH_USER_SUCCESS:
+                return {
+                    ...state, listUsers: action.dataUsers
+                };
+            case FETCH_USER_ERROR:
+                return {
+                    ...state
+                };
+            default: return state;
+        }
+    };
+
+    export default userReducer;
+
+mở file src/reducer/rootReducer.js và thêm vào các dòng code sau để sử dụng userReducer.js:
+    import userReducer from './userReducer';
+    user: userReducer
+
+mở file src/components/TableUser.js:
+    xóa khai báo và lời gọi hàm fetchAllUser()
+    thêm vào các dòng code sau: 
+        import { useDispatch } from "react-redux"
+        import { fetchAllUsers } from "../action/actions"
+        const dispatch = useDispatch()
+    thêm vào hàm useEffect dòng code sau:
+        dispatch(fetchAllUsers())
+    xóa dòng const [listUsers, setListUsers] = useState([])
+    thêm vào đoạn code sau: const listUsers = useSelector((state) => state.user.listUsers)
+
