@@ -157,3 +157,10 @@ tạo file src/components/Home.js với nội dung sau:
     }
     export default Home
 
+npm install --save-exact redux-thunk@2.4.1
+
+mở file store.js cấu hình để sử dụng redux thunk:
+    thêm vào dòng code sau:
+        import thunkMiddleware from 'redux-thunk';
+    sửa import { createStore } from 'redux'; thành import { createStore, applyMiddleware } from 'redux';
+    sửa const store = createStore(rootReducer, composeWithDevTools(); thành const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));
