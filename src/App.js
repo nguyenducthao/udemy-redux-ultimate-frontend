@@ -5,6 +5,7 @@ import { increaseCounter, decreaseCounter } from "./action/actions"
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { useEffect } from 'react';
+import Home from './components/Home';
 
 function App(props) {
   const newCount = useSelector(
@@ -22,18 +23,20 @@ function App(props) {
     fetchAllUser()
   }, [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>Hello world with React!</h1>
-        {/* <div>Count: {props.count}</div> */}
-        <div>Count: {newCount}</div>
-        {/* <button onClick={() => props.increaseCounter()}>Increase Count</button>
-        <button onClick={() => props.decreaseCounter()}>Decrease Count</button> */}
-        <button onClick={() => dispatch(increaseCounter())}>Increase Count</button>
-        <button onClick={() => dispatch(decreaseCounter())}>Decrease Count</button>
-      </header>
-    </div>
+    // <div className="App">
+    //   <header className="App-header">
+    //     <img src={logo} className="App-logo" alt="logo" />
+    //     <h1>Hello world with React!</h1>
+    //     {/* <div>Count: {props.count}</div> */}
+    //     <div>Count: {newCount}</div>
+    //     {/* <button onClick={() => props.increaseCounter()}>Increase Count</button>
+    //     <button onClick={() => props.decreaseCounter()}>Decrease Count</button> */}
+    //     <button onClick={() => dispatch(increaseCounter())}>Increase Count</button>
+    //     <button onClick={() => dispatch(decreaseCounter())}>Decrease Count</button>
+    //   </header>
+    // </div>
+    <Home />
+
   );
 }
 

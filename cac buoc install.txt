@@ -105,3 +105,55 @@ cài extension có tên Redux DevTools vào trình duyệt để xem các giá t
 
 npm install --save-exact axios@0.26.1
 
+npm install --save-exact react-bootstrap@2.1.1 bootstrap@5.1.3
+
+tạo file src/components/Header.js với nội dung sau (copy và chỉnh sửa từ https://react-bootstrap.netlify.app/components/navbar/):
+    import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap"
+
+    const Header = (props) => {
+        return (
+            <>
+                <Navbar bg="light" expand="lg">
+                    <Container>
+                        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                        <Navbar.Collapse id="basic-navbar-nav">
+                            <Nav className="me-auto">
+                                <Nav.Link href="#home">Home</Nav.Link>
+                                <Nav.Link href="#link">Link</Nav.Link>
+                                <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                                    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                                    <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+                                    <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                                    <NavDropdown.Divider />
+                                    <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                                </NavDropdown>
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Container>
+                </Navbar>
+            </>
+        )
+    }
+    export default Header
+
+tạo file src/components/TableUser.js
+
+tạo file src/components/FormAddNew.js
+
+tạo file src/components/Home.js với nội dung sau:
+    import FormAddNew from "./FormAddNew"
+    import Header from "./Header"
+    import TableUser from "./TableUser"
+
+    const Home = (props) => {
+        return (
+            <>
+                <Header />
+                <FormAddNew />
+                <TableUser />
+            </>
+        )
+    }
+    export default Home
+
