@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { Container, Table } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchAllUsers } from "../action/actions"
+import { fetchAllUsers, deleteUserRedux } from "../action/actions"
 
 const TableUser = (props) => {
     // const [listUsers, setListUsers] = useState([])
@@ -9,11 +9,12 @@ const TableUser = (props) => {
     const listUsers = useSelector((state) => state.user.listUsers)
     const isLoading = useSelector((state) => state.user.isLoading)
     const isError = useSelector((state) => state.user.isError)
+    const isDeleting = useSelector((state) => state.user.isDeleting)
     useEffect(() => {
         dispatch(fetchAllUsers())
     }, [])
     const handleOnDeleteUser = (user) => {
-        console.log('data: ', user)
+        dispatch(deleteUserRedux(user.id))
     }
     return (
         <Container>
@@ -49,7 +50,12 @@ const TableUser = (props) => {
                                                 <td>{item.email}</td>
                                                 <td>{item.username}</td>
                                                 <td>
-                                                    <button className="btn btn-danger" onClick={() => handleOnDeleteUser(item)}>Delete</button>
+                                                    <button
+                                                        className="btn btn-danger"
+                                                        onClick={() => handleOnDeleteUser(item)}
+                                                        disabled={isDeleting}>
+                                                        Delete
+                                                    </button>
                                                 </td>
                                             </tr>
                                         )
